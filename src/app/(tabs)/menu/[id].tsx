@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
 import products from "@/assets/data/products";
 import { defaultPizzaImage } from "@/src/components/ProductListItem";
+import Button from "@/src/components/Button";
 
 const sizes = ["S", "M", "L", "XL"];
 
@@ -12,6 +13,10 @@ const ProductDetailsScreen = () => {
   const [selectedSize, setSelectedSize] = useState("M");
 
   const product = products.find((p) => p.id.toString() === id);
+
+  const addToCart = () => {
+    console.log("Adding to cart, size:", selectedSize);
+  };
 
   if (!product) {
     return <Text>Product not found</Text>;
@@ -53,6 +58,7 @@ const ProductDetailsScreen = () => {
         ))}
       </View>
       <Text style={styles.price}>${product.price}</Text>
+      <Button onPress={addToCart} text="Add to cart" />
     </View>
   );
 };
@@ -60,7 +66,7 @@ const ProductDetailsScreen = () => {
 const styles = StyleSheet.create({
   container: { backgroundColor: "white", flex: 1, padding: 10 },
   image: { width: "100%", aspectRatio: 1 },
-  price: { fontSize: 18, fontWeight: "bold" },
+  price: { fontSize: 18, fontWeight: "bold", marginTop: "auto" },
   sizes: {
     flexDirection: "row",
     justifyContent: "space-around",
