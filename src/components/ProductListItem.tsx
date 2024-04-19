@@ -1,14 +1,7 @@
 import Colors from "@/src/constants/Colors";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Product } from "../types";
-import { Link } from "expo-router";
+import { Link, useSegments } from "expo-router";
 
 export const defaultPizzaImage =
   "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
@@ -18,8 +11,16 @@ type ProductListItemProps = {
 };
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
+  const segments = useSegments();
+
+  console.log(segments);
+
+  // Construct the path
+  //Improve agar href bisa asign type data...indikasi ada perubahan penggunaan href di TS versi ini
+  const path = `/${segments[0]}/menu/${product.id}`;
+
   return (
-    <Link href={`/menu/${product.id}`} asChild>
+    <Link href={path as any} asChild>
       <Pressable style={styles.container}>
         <Image
           source={{ uri: product.image || defaultPizzaImage }}
@@ -27,7 +28,6 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
           resizeMode="contain"
         />
         <Text style={styles.title}>{product.name}</Text>
-        {/* <Text style={styles.price}>${product.price}</Text> */}
         <Text style={styles.price}>Rp{product.price}</Text>
       </Pressable>
     </Link>

@@ -60,7 +60,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     );
     // console.log(itemId, amount);
   };
-  // console.log(items);
+  console.log(items);
 
   const total = items.reduce(
     (sum, item) => (sum += item.product.price * item.quantity),
