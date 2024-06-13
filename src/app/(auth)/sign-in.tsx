@@ -91,8 +91,8 @@ import Button from "../../components/Button";
 import Colors from "../../constants/Colors";
 import { Link, Stack } from "expo-router";
 import { supabase } from "@/src/lib/supabase";
-import * as SecureStore from 'expo-secure-store';
-import LZString from 'lz-string';
+import * as SecureStore from "expo-secure-store";
+import LZString from "lz-string";
 
 const storeCompressedValue = async (key: string, value: string) => {
   const compressedValue = LZString.compressToUTF16(value);
@@ -120,17 +120,18 @@ const SignInScreen = () => {
     });
     if (error) {
       Alert.alert(error.message);
-    } else {
-      // Example of storing a large value (e.g., token)
-      if (data.session && data.session.access_token) {
-        const token = data.session.access_token;
-        if (token.length > 2048) {
-          await storeCompressedValue('access_token', token);
-        } else {
-          await SecureStore.setItemAsync('access_token', token);
-        }
-      }
     }
+    // else {
+    //   // Example of storing a large value (e.g., token)
+    //   if (data.session && data.session.access_token) {
+    //     const token = data.session.access_token;
+    //     if (token.length > 2048) {
+    //       await storeCompressedValue('access_token', token);
+    //     } else {
+    //       await SecureStore.setItemAsync('access_token', token);
+    //     }
+    //   }
+    // }
     setLoading(false);
   }
 
@@ -194,5 +195,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignInScreen;
-
-
